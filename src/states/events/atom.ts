@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-import { IEvent } from '@interfaces/Events';
+import { IEvent, IFilterEvents } from '@interfaces/Events';
 
 export const eventListState = atom<IEvent[]>({
    key: 'eventListState',
@@ -20,4 +20,9 @@ export const eventListState = atom<IEvent[]>({
          id: 31231239216
       }
    ]
+});
+
+export const filterEventsState = atom<IFilterEvents>({
+   key: 'filterEventsState',
+   default: {}
 });

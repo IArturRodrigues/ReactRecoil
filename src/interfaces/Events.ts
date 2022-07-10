@@ -5,3 +5,7 @@ export interface IEvent {
    completed: boolean;
    id: number;
 }
+
+export interface IFilterEvents {
+   date?: Date | null;
+}

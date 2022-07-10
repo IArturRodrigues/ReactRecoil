@@ -1,6 +1,6 @@
 import Kalend, { CalendarEvent, CalendarView, OnEventDragFinish } from 'kalend';
 
-import { useEventsValue } from '@states/events/atomHooks';
+import { useEventsValue } from '@states/events/eventsAtomHooks';
 
 import ptBR from './locale/ptBR.json';
 

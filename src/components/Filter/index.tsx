@@ -1,20 +1,19 @@
+import { IFilterEvents } from '@interfaces/Events';
+import { useSetFilter } from '@states/events/filterAtomHooks';
 import { useState } from 'react';
 import { Filter as SFilter } from './Filter';
 
-interface FilterProps {
-   afterApplyFilter: (date: Date | null) => void;
-}
-
-function Filter ({ afterApplyFilter }: FilterProps) {
+function Filter () {
    const [date, setDate] = useState('');
+   const setFilter = useSetFilter();
 
    function submitForm (event: React.FormEvent<HTMLFormElement>) {
       event.preventDefault();
-      if (!date) {
-         afterApplyFilter(null);
-         return;
+      const filter: IFilterEvents = { date: null };
+      if (date) {
+         filter.date = new Date(date);
       }
-      afterApplyFilter(new Date(date));
+      setFilter(filter);
    }
 
    return (

@@ -1,5 +1,5 @@
 import { IEvent } from '@interfaces/Events';
-import { useSetEvents } from '@states/events/atomHooks';
+import { useSetEvents } from '@states/events/eventsAtomHooks';
 
 export function useUpdateEvent () {
    const setEventList = useSetEvents();

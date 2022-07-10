@@ -1,20 +1,16 @@
-import { useEventsValue } from '@states/events/atomHooks';
+import { useEventsValue } from '@states/events/eventsAtomHooks';
 
 import Event from '../Event';
 import Filter from '../Filter';
 
 import { Scroll } from './EventList';
 
-interface EventListProps {
-   afterApplyFilter: (date: Date | null) => void;
-}
-
-function EventList ({ afterApplyFilter }: EventListProps) {
+function EventList () {
    const events = useEventsValue();
 
    return (
       <section>
-         <Filter afterApplyFilter={afterApplyFilter} />
+         <Filter />
          <Scroll>
             {
                events.map(event => (

@@ -1,5 +1,5 @@
 import { IEvent } from '@interfaces/Events';
-import { useSetEvents } from '@states/events/atomHooks';
+import { useSetEvents } from '@states/events/eventsAtomHooks';
 import { getId } from '@utils/getId';
 
 export function useAddEvent () {
