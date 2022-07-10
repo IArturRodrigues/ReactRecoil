@@ -1,20 +1,17 @@
+import { useDeleteEvent } from '@hooks/useDeleteEvent';
+
 import EventoCheckbox from './EventCheckbox';
 
 import { IEvent } from '@interfaces/Events';
 
 import { Event as SEvent, Description } from './Event';
-import { useSetEvents } from '@states/events/atomHooks';
 
 interface EventProps {
    event: IEvent;
 }
 
 function Event ({ event }: EventProps) {
-   const setEventList = useSetEvents();
-
-   function deleteEvent () {
-      setEventList(prevList => [...prevList.filter(eventInList => eventInList.id)]);
-   }
+   const deleteEvent = useDeleteEvent();
 
    return (
       <SEvent completed={event.completed} >
@@ -22,7 +19,7 @@ function Event ({ event }: EventProps) {
          <div className="cards-info">
             <Description>{event.description} - {event.startedAt.toLocaleDateString()}</Description>
          </div>
-         <i className="far fa-times-circle fa-2x" onClick={deleteEvent}></i>
+         <i className="far fa-times-circle fa-2x" onClick={() => deleteEvent(event)}></i>
       </SEvent>
    );
 };

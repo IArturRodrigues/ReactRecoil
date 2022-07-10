@@ -4,9 +4,9 @@ import { useSetEvents } from '@states/events/atomHooks';
 export function useUpdateEvent () {
    const setEventList = useSetEvents();
    return (event: IEvent) => {
-      setEventList(currList => {
-         const index = currList.findIndex(evt => evt.id === event.id);
-         return [...currList.slice(0, index), event, ...currList.slice(index + 1)];
+      setEventList(prevList => {
+         const index = prevList.findIndex(evt => evt.id === event.id);
+         return [...prevList.slice(0, index), event, ...prevList.slice(index + 1)];
       });
    };
 }

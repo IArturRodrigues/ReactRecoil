@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useSetEvents } from '@states/events/atomHooks';
+import { useAddEvent } from '@hooks/useAddEvent';
 import { getId } from '@utils/getId';
 
 import { IEvent } from '@interfaces/Events';
@@ -8,7 +8,7 @@ import { IEvent } from '@interfaces/Events';
 import { Form as SForm } from './Form';
 
 function Form () {
-   const setEventList = useSetEvents();
+   const addEvent = useAddEvent();
 
    const [description, setDescription] = useState('');
    const [startDate, setStartDate] = useState('');
@@ -23,19 +23,23 @@ function Form () {
 
    function submitForm (event: React.FormEvent<HTMLFormElement>) {
       event.preventDefault();
-      const calendarEvent: IEvent = {
-         id: getId(),
-         description,
-         startedAt: mountDate(startDate, startHour),
-         finishedAt: mountDate(endDate, endHour),
-         completed: false
-      };
-      setEventList(prevList => [...prevList, calendarEvent]);
-      setDescription('');
-      setStartDate('');
-      setStartHour('');
-      setEndDate('');
-      setEndHour('');
+      try {
+         const calendarEvent: IEvent = {
+            id: getId(),
+            description,
+            startedAt: mountDate(startDate, startHour),
+            finishedAt: mountDate(endDate, endHour),
+            completed: false
+         };
+         addEvent(calendarEvent);
+         setDescription('');
+         setStartDate('');
+         setStartHour('');
+         setEndDate('');
+         setEndHour('');
+      } catch (err) {
+         alert(err);
+      }
    }
    return (
       <SForm onSubmit={submitForm}>
