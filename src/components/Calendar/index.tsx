@@ -1,6 +1,6 @@
-import Kalend, { CalendarView } from 'kalend';
+import Kalend, { CalendarEvent, CalendarView, OnEventDragFinish } from 'kalend';
 
-import { useEventsValue } from '@states/events/atomHooks';
+import { useEvents } from '@states/events/atomHooks';
 
 import ptBR from './locale/ptBR.json';
 
@@ -17,9 +17,9 @@ interface IKalendEvent {
 
 function Calendar () {
    const kalendEvents = new Map<string, IKalendEvent[]>();
-   const events = useEventsValue();
+   const [eventList, setEventList] = useEvents();
 
-   events.forEach(event => {
+   eventList.forEach(event => {
       const key = event.startedAt.toISOString().slice(0, 10);
       if (!kalendEvents.has(key)) {
          kalendEvents.set(key, []);
@@ -33,6 +33,25 @@ function Calendar () {
       });
    });
    
+   const onEventDragFinish: OnEventDragFinish = (
+      unchangedKalendEvent: CalendarEvent,
+      updatedKalendEvent: CalendarEvent
+   ) => {
+      const event = eventList.find(event => event.description === updatedKalendEvent.summary);
+      if (event) {
+         const updatedEvent = {
+            ...event,
+            startedAt: new Date(updatedKalendEvent.startAt),
+            finishedAt: new Date(updatedKalendEvent.endAt)
+         };
+
+         setEventList(currList => {
+            const index = currList.findIndex(evt => evt.id === event.id);
+            return [...currList.slice(0, index), updatedEvent, ...currList.slice(index + 1)];
+         });
+      }
+   };
+
    return (
       <Container>
          <Kalend
@@ -45,6 +64,7 @@ function Calendar () {
             calendarIDsHidden={['work']}
             language={'customLanguage'}
             customLanguage={ptBR}
+            onEventDragFinish={onEventDragFinish}
          />
       </Container>
       // <div></div>
