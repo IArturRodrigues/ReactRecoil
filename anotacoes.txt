@@ -37,6 +37,19 @@ recoil {
       para fazermos um seletor assíncrono basta fazermos uma arrow function com async e o resto da implementação padrão do await.
       podemos colocar esse seletor assíncrono como valor padrão de um atom, basta apenas chamar o seletor na hora de setar o valor default.
       mas para que tudo funcione precisamos envolver a aplicação por um componente chamado Suspense, ele recebe um parâmetro chamado fallback que deve ser uma string ou um componente a ser executado enquanto a reposta nao chega, o Suspense deve estar dentro do RecoilRoot e antes da aplicação começar de fato.
+      obs: os valores padrão de um atom podem ser assíncronas também, para saber como implementar basta olhar na documentação
+   }
+
+   observando as mudanças com recoil {
+      tem um componente criado chamado DebugObserver que ele vai mostrar todas as alterações feita nos estados que sao monitorados pelo recoil, para saber mais sobre esses debuggers basta ver na documentação do recoil.
+
+      caso dê algum erro de implementação dos observes talvez colocar a opção no tsconfig ajude {
+         "downlevelIteration": true
+      }
+
+      links {
+         doc sobre os observes: https://recoiljs.org/docs/guides/dev-tools
+      }
    }
 }
 
