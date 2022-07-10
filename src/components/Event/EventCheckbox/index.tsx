@@ -1,19 +1,33 @@
-import { IEvent } from '@interfaces/Events';
+import { useSetEvents } from '@states/events/atomHooks';
 
+import { IEvent } from '@interfaces/Events';
 interface EventCheckboxProps {
    event: IEvent;
-   afterStatusChange: (id: number) => void;
 }
 
-function EventCheckbox ({ event, afterStatusChange }: EventCheckboxProps) {
-   const estilos = [
+function EventCheckbox ({ event }: EventCheckboxProps) {
+   const setEventList = useSetEvents();
+
+   function changeStatus () {
+      const alteredEvent = {
+         ...event,
+         completed: !event.completed
+      };
+
+      setEventList(prevList => {
+         const index = prevList.findIndex(evt => evt.id === event.id);
+         return [...prevList.slice(0, index), alteredEvent, ...prevList.slice(index + 1)];
+      });
+   }
+
+   const styles = [
       'far',
       'fa-2x',
       event.completed ? 'fa-check-square' : 'fa-square'
    ];
 
    return (
-      <i className={estilos.join(' ')} onClick={() => afterStatusChange(event.id!)}></i>
+      <i className={styles.join(' ')} onClick={changeStatus}></i>
    );
 }
 

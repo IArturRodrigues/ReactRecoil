@@ -30,7 +30,7 @@ function Form () {
          finishedAt: mountDate(endDate, endHour),
          completed: false
       };
-      setEventList(currList => [...currList, calendarEvent]);
+      setEventList(prevList => [...prevList, calendarEvent]);
       setDescription('');
       setStartDate('');
       setStartHour('');

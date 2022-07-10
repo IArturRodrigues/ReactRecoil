@@ -3,26 +3,25 @@ import { useEventsValue } from '@states/events/atomHooks';
 import Event from '../Event';
 import Filter from '../Filter';
 
-import style from './ListaDeEventos.module.scss';
+import { Scroll } from './EventList';
 
 interface EventListProps {
-   afterStatusChange: (id: number) => void;
    afterApplyFilter: (date: Date | null) => void;
 }
 
-function EventList ({ afterApplyFilter, afterStatusChange }: EventListProps) {
+function EventList ({ afterApplyFilter }: EventListProps) {
    const events = useEventsValue();
 
    return (
       <section>
          <Filter afterApplyFilter={afterApplyFilter} />
-         <div className={style.Scroll}>
+         <Scroll>
             {
                events.map(event => (
-                  <Event afterStatusChange={afterStatusChange} event={event} key={event.id} />
+                  <Event event={event} key={event.id} />
                ))
             }
-         </div>
+         </Scroll>
       </section>
    );
 }

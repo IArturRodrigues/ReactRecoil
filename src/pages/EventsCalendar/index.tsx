@@ -6,7 +6,7 @@ import Card from '@components/Card';
 import EventList from '@components/EventList';
 import Form from '@components/Form';
 
-import { useEvents } from '@states/events/atomHooks';
+// import { useEvents } from '@states/events/atomHooks';
 
 // import { IEvent } from '@interfaces/Events';
 
@@ -14,7 +14,7 @@ import { App } from './EventsCalendar';
 
 function EventsCalendar () {
    const [filter, setFilter] = useState<Date | null>();
-   const [events, setEvents] = useEvents();
+   // const [events, setEvents] = useEvents();
 
    // function addEvent (event: IEvent) {
    //    event.id = Math.round((new Date()).getTime() / 1000);
@@ -22,13 +22,13 @@ function EventsCalendar () {
    //    setEvents([...events]);
    // }
 
-   function alterEventStatus (id: number) {
-      const event = events.find(event => event.id === id);
-      if (event) {
-         event.completed = !event.completed;
-      }
-      setEvents([...events]);
-   }
+   // function alterEventStatus (id: number) {
+   //    const event = events.find(event => event.id === id);
+   //    if (event) {
+   //       event.completed = !event.completed;
+   //    }
+   //    setEvents([...events]);
+   // }
 
    // function deleteEvent (id: number) {
    //    setEvents([...events.filter(event => event.id !== id)]);
@@ -55,7 +55,6 @@ function EventsCalendar () {
                <Card>
                   <EventList
                      afterApplyFilter={applyFilter}
-                     afterStatusChange={alterEventStatus}
                   />
                </Card>
             </App.Column>

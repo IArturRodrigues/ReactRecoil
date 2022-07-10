@@ -7,19 +7,18 @@ import { useSetEvents } from '@states/events/atomHooks';
 
 interface EventProps {
    event: IEvent;
-   afterStatusChange: (id: number) => void;
 }
 
-function Event ({ event, afterStatusChange }: EventProps) {
+function Event ({ event }: EventProps) {
    const setEventList = useSetEvents();
 
    function deleteEvent () {
-      setEventList(prevList => prevList.filter(eventInList => eventInList.id));
+      setEventList(prevList => [...prevList.filter(eventInList => eventInList.id)]);
    }
 
    return (
       <SEvent completed={event.completed} >
-         <EventoCheckbox event={event} afterStatusChange={afterStatusChange}/>
+         <EventoCheckbox event={event}/>
          <div className="cards-info">
             <Description>{event.description} - {event.startedAt.toLocaleDateString()}</Description>
          </div>

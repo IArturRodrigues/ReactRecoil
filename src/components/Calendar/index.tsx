@@ -1,12 +1,13 @@
 import Kalend, { CalendarView } from 'kalend';
 
-import { useGetEvents } from '@states/events/atomHooks';
+import { useEventsValue } from '@states/events/atomHooks';
 
 import ptBR from './locale/ptBR.json';
 
+import 'kalend/dist/styles/index.css';
 import { Container } from './Calendar';
 
-interface IKalendEvento {
+interface IKalendEvent {
    id?: number
    startAt: string
    endAt: string
@@ -14,9 +15,9 @@ interface IKalendEvento {
    color: string
 }
 
-const Calendar: React.FC = () => {
-   const kalendEvents = new Map<string, IKalendEvento[]>();
-   const events = useGetEvents();
+function Calendar () {
+   const kalendEvents = new Map<string, IKalendEvent[]>();
+   const events = useEventsValue();
 
    events.forEach(event => {
       const key = event.startedAt.toISOString().slice(0, 10);
@@ -46,6 +47,7 @@ const Calendar: React.FC = () => {
             customLanguage={ptBR}
          />
       </Container>
+      // <div></div>
    );
 };
 
