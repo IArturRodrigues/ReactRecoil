@@ -1,0 +1,35 @@
+eslint {
+   yarn add -D eslint-plugin-react-hooks
+   esse plugin verifica se os hooks estão sendo usados da maneira certa pelo react
+
+   depois de baixar vá nas configurações do eslint {
+      {
+         "plugins": [
+            // ...
+            "react-hooks"
+         ],
+         "rules": {
+            // ...
+            "react-hooks/rules-of-hooks": "error", // Verifica as regras dos Hooks
+            "react-hooks/exhaustive-deps": "warn" // Verifica as dependências de effects
+         }
+      }
+   }
+}
+
+recoil {
+   uma lib para gerenciamento de estado no react. Com ela, evitamos o prop drilling.
+
+   o que e props drilling? É a forma normal do react de passar estados adiante.
+   por exemploÇ eu tenho uma arvore com 3 componentes em que o 1o precisa receber o valor do estado e quem seta esse estado é o 3o componente (ou vice-versa), para que as informações de estado funcionem é necessário criar esses estados no componente pai e ir passando ele aos filhos onde os valores serão usados ou alterados, porém os componentes que ficam entre eles não estarão fazendo nada com esse estado além de passá-lo para frente, isso é o prop drilling, os componentes intermediários ficam sobrecarregado com estados que eles nem sequer estão usando, para evitar isso são utilizadas libs como recoil ou Context API.
+
+   o inicio de tudo sao criar átomos que serão nossos estados.
+
+   para que possamos usar esses estados precisamos de hooks do recoil {
+      retorna o valor do estado: useRecoilValue(atom)
+      seta o valor do estado: useSetRecoilValue(atom)
+      retorna um array de 2 posições, a primeira é o valor do estado, a segunda seta o valor do estado (funciona da mesma forma que o useState do react): useRecoilState(atom)
+   }
+
+   para que os hooks tenham efeito é preciso que a aplicação ou o componente esteja envolvido pelo RecoilRoot, pois é ele quem vai providenciar nossos estados que estão sendo setados e recebidos em diferentes partes da aplicação. 
+}
