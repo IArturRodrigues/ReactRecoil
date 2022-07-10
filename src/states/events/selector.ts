@@ -1,3 +1,4 @@
+import { IEvent } from '@interfaces/Events';
 import { selector } from 'recoil';
 import { eventListState, filterEventsState } from './atom';
 
@@ -16,5 +17,18 @@ export const filteredEventsState = selector({
          return isSameDay;
       });
       return filteredEvents;
+   }
+});
+
+export const asyncSelector = selector({
+   key: 'asyncSelector',
+   get: async () => {
+      const response = await fetch('http://localhost:8080/events');
+      const events: IEvent[] = await response.json();
+      return events.map(event => ({
+         ...event,
+         startedAt: new Date(event.startedAt),
+         finishedAt: new Date(event.finishedAt)
+      }));
    }
 });

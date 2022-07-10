@@ -1,8 +1,14 @@
 import { EventsCalendar } from '@pages';
+import { Suspense } from 'react';
+import { RecoilRoot } from 'recoil';
 
 function App () {
    return (
-      <EventsCalendar />
+      <RecoilRoot>
+         <Suspense fallback="Está carregando">
+            <EventsCalendar />
+         </Suspense>
+      </RecoilRoot>
    );
 }
 

@@ -32,4 +32,27 @@ recoil {
    }
 
    para que os hooks tenham efeito é preciso que a aplicação ou o componente esteja envolvido pelo RecoilRoot, pois é ele quem vai providenciar nossos estados que estão sendo setados e recebidos em diferentes partes da aplicação. 
+
+   seletores assíncronos {
+      para fazermos um seletor assíncrono basta fazermos uma arrow function com async e o resto da implementação padrão do await.
+      podemos colocar esse seletor assíncrono como valor padrão de um atom, basta apenas chamar o seletor na hora de setar o valor default.
+      mas para que tudo funcione precisamos envolver a aplicação por um componente chamado Suspense, ele recebe um parâmetro chamado fallback que deve ser uma string ou um componente a ser executado enquanto a reposta nao chega, o Suspense deve estar dentro do RecoilRoot e antes da aplicação começar de fato.
+   }
+}
+
+utilizar json server para simular uma chamada assíncrono {
+   npm i -g json-server
+
+   como usar {
+      criar um arquivo na raiz chamado db.json e nele colocar o banco de dados fake
+
+      para executar basta colocar o comando: json-server --watch db.json
+      o ultimo parâmetro passado nesse comando é o caminho até o arquivo
+      para mudar a porta basta colocar a tag -p numeroDaPorta depois do caminho até o arquivo
+   }
+
+   link {
+      json server: https://github.com/typicode/json-server#getting-started
+      artigo alura: https://www.alura.com.br/artigos/mockando-apis-rest-com-json-server
+   }
 }

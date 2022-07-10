@@ -1,5 +1,3 @@
-import { RecoilRoot } from 'recoil';
-
 import Calendar from '@components/Calendar';
 import Card from '@components/Card';
 import EventList from '@components/EventList';
@@ -13,22 +11,20 @@ import { App } from './EventsCalendar';
 
 function EventsCalendar () {
    return (
-      <RecoilRoot>
-         <App>
-            <App.Column>
-               <Card>
-                  <Form />
-               </Card>
-               <hr />
-               <Card>
-                  <EventList />
-               </Card>
-            </App.Column>
-            <App.Column>
-               <Calendar />
-            </App.Column>
-         </App>
-      </RecoilRoot>
+      <App>
+         <App.Column>
+            <Card>
+               <Form />
+            </Card>
+            <hr />
+            <Card>
+               <EventList />
+            </Card>
+         </App.Column>
+         <App.Column>
+            <Calendar />
+         </App.Column>
+      </App>
    );
 }
 
