@@ -1,11 +1,12 @@
 import Kalend, { CalendarEvent, CalendarView, OnEventDragFinish } from 'kalend';
 
-import { useEvents } from '@states/events/atomHooks';
+import { useEventsValue } from '@states/events/atomHooks';
 
 import ptBR from './locale/ptBR.json';
 
 import 'kalend/dist/styles/index.css';
 import { Container } from './Calendar';
+import { useUpdateEvent } from '@hooks/useUpdateEvent';
 
 interface IKalendEvent {
    id?: number
@@ -17,7 +18,8 @@ interface IKalendEvent {
 
 function Calendar () {
    const kalendEvents = new Map<string, IKalendEvent[]>();
-   const [eventList, setEventList] = useEvents();
+   const eventList = useEventsValue();
+   const updateEvent = useUpdateEvent();
 
    eventList.forEach(event => {
       const key = event.startedAt.toISOString().slice(0, 10);
@@ -45,10 +47,7 @@ function Calendar () {
             finishedAt: new Date(updatedKalendEvent.endAt)
          };
 
-         setEventList(currList => {
-            const index = currList.findIndex(evt => evt.id === event.id);
-            return [...currList.slice(0, index), updatedEvent, ...currList.slice(index + 1)];
-         });
+         updateEvent(updatedEvent);
       }
    };
 

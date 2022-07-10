@@ -1,4 +1,4 @@
-import { useSetEvents } from '@states/events/atomHooks';
+import { useUpdateEvent } from '@hooks/useUpdateEvent';
 
 import { IEvent } from '@interfaces/Events';
 interface EventCheckboxProps {
@@ -6,7 +6,7 @@ interface EventCheckboxProps {
 }
 
 function EventCheckbox ({ event }: EventCheckboxProps) {
-   const setEventList = useSetEvents();
+   const updateEvent = useUpdateEvent();
 
    function changeStatus () {
       const alteredEvent = {
@@ -14,10 +14,7 @@ function EventCheckbox ({ event }: EventCheckboxProps) {
          completed: !event.completed
       };
 
-      setEventList(prevList => {
-         const index = prevList.findIndex(evt => evt.id === event.id);
-         return [...prevList.slice(0, index), alteredEvent, ...prevList.slice(index + 1)];
-      });
+      updateEvent(alteredEvent);
    }
 
    const styles = [
